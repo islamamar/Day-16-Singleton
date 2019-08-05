@@ -20,14 +20,21 @@ public class NewCalender extends JFrame {
     DefaultTableModel model;
     Calendar cal = new GregorianCalendar();
     JLabel label;
+      int hash_code = 0 ;
 
     private static NewCalender obj= new NewCalender();//Early, instance will be created at load time
-    private NewCalender(){
+     private  NewCalender(){
+
+
+     }
+  public  void frameCreation()
+    {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setTitle("Swing Calendar");
         this.setSize(300, 200);
         this.setLayout(new BorderLayout());
         this.setVisible(true);
+        int count = 0 ;
 
 
         label = new JLabel();
@@ -40,10 +47,41 @@ public class NewCalender extends JFrame {
                 updateMonth();
             }
         });
+
+        JButton b2 = new JButton("->");
+        b2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                cal.add(Calendar.MONTH, +1);
+                updateMonth();
+            }
+        });
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.add(b1, BorderLayout.WEST);
+        panel.add(label, BorderLayout.CENTER);
+        panel.add(b2, BorderLayout.EAST);
+
+
+        String[] columns = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+        model = new DefaultTableModel(null, columns);
+        JTable table = new JTable(model);
+        JScrollPane pane = new JScrollPane(table);
+
+        this.add(panel, BorderLayout.NORTH);
+        this.add(pane, BorderLayout.CENTER);
+
+        this.updateMonth();
+
     }
 
+
     public static NewCalender getCalender(){
+
+
         return obj;
+
+
     }
 
     void updateMonth() {

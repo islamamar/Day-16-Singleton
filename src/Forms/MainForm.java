@@ -16,8 +16,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class MainForm extends JFrame {
+    int count =0 ;
+    ArrayList<Integer>arr = new ArrayList<>() ;
     public MainForm() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close the application on JForm exit
         this.setTitle("Main Form");
@@ -54,7 +57,35 @@ public class MainForm extends JFrame {
      */
 
     private void showNewCalender() {
-        NewCalender sc = NewCalender.getCalender();
+        int hash_code  = 0 ;
+        int old_arr_size = arr.size() ;
+        int new_size= arr.size();
+
+        NewCalender sc =   NewCalender.getCalender();
+        sc.frameCreation();
+        if(count== 0 ) {
+            arr.add(sc.hashCode());
+        }
+        else
+        {
+            for(int i=0 ;i<arr.size() ;i++)
+            {
+                if (sc.hashCode() == arr.get(i))
+                {
+                    break ;
+                }
+                else
+                {
+                    arr.add(sc.hashCode());
+
+                    new_size=arr.size();
+
+                }
+            }
+
+        }
+
+        if (new_size>old_arr_size ||arr.size()== 1)
         Util.Logger.log("Object HC: " + sc.hashCode()); // Log Calender hash code
     }
 
